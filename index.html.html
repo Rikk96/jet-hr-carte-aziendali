@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carte aziendali per dipendenti e gestione spese | Jet HR</title>
+  <meta name="description" content="Dai ai dipendenti carte aziendali con limiti e regole di spesa. Ogni transazione entra in Jet HR, viene riconciliata e arriva pronta per la contabilità.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.jethr.com/funzionalita/carte-aziendali">
+
+  <meta property="og:title" content="Carte aziendali Jet | Spese sotto controllo, senza Excel">
+  <meta property="og:description" content="Dalla transazione alla contabilità, senza note spese manuali.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.jethr.com/funzionalita/carte-aziendali">
+
+  <style>
+    :root{
+      --ink:#141414;
+      --paper:#fbfaf5;
+      --white:#ffffff;
+      --lime:#d9ff45;
+      --lime-2:#efffc0;
+      --mint:#e9f7ee;
+      --lilac:#efeafb;
+      --peach:#ffe9de;
+      --line:#dddcd4;
+      --muted:#6d6d68;
+      --shadow:0 22px 70px rgba(20,20,20,.11);
+      --radius:28px;
+      --radius-sm:18px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:var(--paper);
+      font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit}
+    .wrap{width:min(calc(100% - 40px),var(--max));margin:0 auto}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:9px;
+      font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase
+    }
+    .eyebrow::before{
+      content:"";width:10px;height:10px;border-radius:3px;background:var(--lime);border:1px solid var(--ink)
+    }
+
+    /* NAV */
+    header{
+      position:sticky;top:0;z-index:20;
+      background:rgba(251,250,245,.92);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(20,20,20,.08);
+    }
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:22px;letter-spacing:-.03em}
+    .logo-mark{
+      width:30px;height:30px;border-radius:8px;background:var(--lime);border:2px solid var(--ink);
+      display:grid;place-items:center;box-shadow:3px 3px 0 var(--ink);
+      font-weight:900;font-size:19px;
+    }
+    .navlinks{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:700}
+    .navlinks a{text-decoration:none}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      border:1.5px solid var(--ink);border-radius:999px;
+      padding:13px 19px;font-weight:800;text-decoration:none;
+      transition:.18s ease;cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--ink);color:var(--white)}
+    .btn-lime{background:var(--lime);color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+    .btn-ghost{background:transparent}
+
+    /* HERO */
+    .hero{padding:76px 0 58px}
+    .hero-grid{
+      display:grid;grid-template-columns:1.03fr .97fr;gap:60px;align-items:center
+    }
+    h1{
+      font-size:clamp(48px,6.2vw,82px);line-height:.96;letter-spacing:-.06em;
+      margin:20px 0 24px;max-width:860px
+    }
+    .hero p{
+      font-size:20px;line-height:1.5;color:#3f3f3b;max-width:690px;margin:0 0 24px
+    }
+    .punchline{font-weight:900;color:var(--ink)!important}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .micro{font-size:13px;color:var(--muted);margin-top:14px}
+
+    .visual{
+      min-height:580px;border-radius:42px;background:var(--mint);
+      border:1.5px solid var(--ink);position:relative;overflow:hidden;
+      box-shadow:var(--shadow);padding:34px;
+    }
+    .visual::before{
+      content:"";position:absolute;width:290px;height:290px;border-radius:50%;
+      background:var(--lime);right:-100px;top:-90px;opacity:.9
+    }
+    .visual::after{
+      content:"";position:absolute;width:200px;height:200px;border-radius:50%;
+      background:var(--lilac);left:-70px;bottom:-80px
+    }
+    .dashboard{
+      position:relative;z-index:2;background:var(--white);border:1.5px solid var(--ink);
+      border-radius:24px;padding:18px;box-shadow:10px 10px 0 rgba(20,20,20,.08)
+    }
+    .dash-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:13px}
+    .dots{display:flex;gap:6px}.dots i{display:block;width:8px;height:8px;border-radius:50%;background:#d4d4cf}
+    .expense{
+      display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;
+      padding:13px 0;border-top:1px solid #ecebe5
+    }
+    .icon{
+      width:40px;height:40px;border-radius:12px;background:var(--lime-2);
+      display:grid;place-items:center;font-weight:900
+    }
+    .expense strong{display:block;font-size:13px}.expense span{font-size:12px;color:var(--muted)}
+    .amount{font-weight:900}
+    .status{
+      display:inline-block;margin-top:4px;background:#eaf8ee;border:1px solid #b8dfc4;
+      border-radius:999px;padding:3px 7px;color:#27643a;font-size:10px!important;font-weight:800
+    }
+    .card-mock{
+      width:76%;aspect-ratio:1.62;border-radius:24px;
+      background:var(--ink);color:var(--white);position:absolute;z-index:4;
+      right:18px;bottom:26px;padding:25px;border:1.5px solid var(--ink);
+      box-shadow:0 26px 50px rgba(20,20,20,.25);transform:rotate(-4deg)
+    }
+    .card-mock .card-logo{display:flex;align-items:center;gap:9px;font-weight:900;font-size:18px}
+    .card-mock .chip{
+      width:44px;height:32px;background:linear-gradient(135deg,#e8d89f,#a89146);
+      border-radius:8px;margin-top:34px;position:relative;overflow:hidden
+    }
+    .card-mock .chip:before,.card-mock .chip:after{content:"";position:absolute;border:1px solid rgba(0,0,0,.3)}
+    .card-mock .chip:before{inset:8px -4px}.card-mock .chip:after{inset:-4px 14px}
+    .card-number{margin-top:24px;letter-spacing:.16em;font-weight:800}
+    .card-bottom{display:flex;justify-content:space-between;margin-top:20px;font-size:12px;color:#ddd}
+    .card-stripe{
+      position:absolute;right:18px;top:18px;background:var(--lime);color:var(--ink);
+      padding:8px 10px;border-radius:10px;font-size:11px;font-weight:900
+    }
+
+    /* TRUST */
+    .proof{
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      padding:22px 0;background:var(--white)
+    }
+    .proof .wrap{display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800}
+    .proof b{background:var(--lime);padding:2px 6px;border-radius:6px;margin:0 4px}
+
+    /* SECTIONS */
+    section{padding:92px 0}
+    .section-head{max-width:800px;margin-bottom:44px}
+    h2{font-size:clamp(36px,4.6vw,58px);line-height:1.02;letter-spacing:-.045em;margin:12px 0 18px}
+    .lead{font-size:19px;color:#4a4a46;max-width:750px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .feature{
+      min-height:230px;padding:26px;border:1.5px solid var(--ink);
+      border-radius:var(--radius);background:var(--white)
+    }
+    .feature:nth-child(2){background:var(--lilac)}
+    .feature:nth-child(3){background:var(--peach)}
+    .feature .n{
+      width:42px;height:42px;border-radius:14px;background:var(--ink);color:var(--white);
+      display:grid;place-items:center;font-weight:900;margin-bottom:44px
+    }
+    .feature h3{font-size:22px;letter-spacing:-.025em;margin:0 0 10px}
+    .feature p{margin:0;color:#4d4d48}
+
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .panel{
+      border:1.5px solid var(--ink);border-radius:36px;padding:34px;background:var(--white);
+      box-shadow:8px 8px 0 rgba(20,20,20,.07)
+    }
+    .steps{display:grid;gap:12px;margin-top:22px}
+    .step{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;padding:14px;border-radius:16px;background:#f5f5f0}
+    .step i{
+      font-style:normal;width:36px;height:36px;border-radius:12px;background:var(--lime);
+      display:grid;place-items:center;font-weight:900;border:1px solid var(--ink)
+    }
+    .step strong{display:block;margin:2px 0 4px}.step span{font-size:14px;color:var(--muted)}
+
+    .compare{background:var(--ink);color:var(--white)}
+    .compare .lead{color:#cfcfca}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .flow{
+      padding:28px;border-radius:28px;border:1px solid #52524d;background:#20201e
+    }
+    .flow.good{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+    .flow small{display:block;text-transform:uppercase;letter-spacing:.08em;font-weight:900;margin-bottom:16px}
+    .flowline{font-size:25px;font-weight:900;line-height:1.35;letter-spacing:-.02em}
+    .arrow{opacity:.55;padding:0 6px}
+
+    .audience{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .persona{padding:24px;border-radius:22px;background:var(--white);border:1px solid var(--line)}
+    .persona strong{font-size:18px;display:block;margin-bottom:8px}.persona p{font-size:14px;color:var(--muted);margin:0}
+
+    .trustbox{
+      background:var(--lilac);border:1.5px solid var(--ink);border-radius:36px;padding:36px
+    }
+    .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .trustbox ul{margin:4px 0 0;padding-left:20px}.trustbox li{margin:10px 0}
+
+    /* FAQ */
+    .faq{display:grid;gap:10px;max-width:900px}
+    details{
+      background:var(--white);border:1px solid var(--line);border-radius:18px;padding:0 20px
+    }
+    summary{
+      list-style:none;cursor:pointer;padding:20px 36px 20px 0;font-weight:850;position:relative
+    }
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+";position:absolute;right:0;top:12px;font-size:30px}
+    details[open] summary::after{content:"–"}
+    details p{color:#55554f;margin:0;padding:0 0 20px}
+
+    .final{
+      padding:82px 0;background:var(--lime);border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)
+    }
+    .final-inner{display:flex;justify-content:space-between;gap:40px;align-items:end}
+    .final h2{max-width:770px;margin-bottom:0}
+
+    footer{padding:34px 0;background:var(--paper)}
+    footer .wrap{display:flex;justify-content:space-between;gap:20px;align-items:center;color:var(--muted);font-size:13px}
+    .prototype{
+      border:1px solid #bbb;background:#fff;padding:8px 10px;border-radius:999px;color:#575752;font-weight:700
+    }
+
+    @media(max-width:900px){
+      .navlinks a:not(.btn){display:none}
+      .hero-grid,.split,.trust-grid{grid-template-columns:1fr}
+      .visual{min-height:530px}
+      .grid-3{grid-template-columns:1fr}
+      .audience{grid-template-columns:1fr 1fr}
+      .compare-grid{grid-template-columns:1fr}
+      .final-inner{display:block}.final .actions{margin-top:26px}
+    }
+    @media(max-width:580px){
+      .wrap{width:min(calc(100% - 24px),var(--max))}
+      nav{height:68px}.navlinks{gap:8px}.navlinks .btn{padding:10px 13px;font-size:12px}
+      .hero{padding-top:44px}.hero-grid{gap:34px}
+      h1{font-size:49px}
+      .hero p{font-size:17px}
+      .visual{min-height:460px;padding:18px}
+      .card-mock{width:86%;padding:19px}
+      .grid-3,.audience{grid-template-columns:1fr}
+      section{padding:68px 0}
+      .panel,.trustbox{padding:24px}
+      footer .wrap{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+
+  <!-- Esempio di structured data: i dettagli finanziari reali andrebbero validati con Product/Legal prima del go-live. -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Carte aziendali Jet",
+    "description":"Carte aziendali integrate con gestione spese, note spese e contabilità.",
+    "isPartOf":{"@type":"WebSite","name":"Jet HR","url":"https://www.jethr.com/"}
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Posso dare una carta a ogni dipendente?",
+        "acceptedAnswer":{"@type":"Answer","text":"Se previsto dal prodotto, l’amministratore può assegnare carte e regole in base a ruolo, team o necessità."}
+      },
+      {
+        "@type":"Question",
+        "name":"Posso impostare limiti diversi?",
+        "acceptedAnswer":{"@type":"Answer","text":"Se previsto dal prodotto, i limiti possono essere definiti per persona o team per governare la spesa prima della transazione."}
+      },
+      {
+        "@type":"Question",
+        "name":"Come vengono gestiti gli scontrini?",
+        "acceptedAnswer":{"@type":"Answer","text":"La transazione entra in Jet HR e il dipendente allega il giustificativo. Il sistema collega i dati alla spesa e segnala ciò che manca."}
+      },
+      {
+        "@type":"Question",
+        "name":"Le spese con carta finiscono in busta paga?",
+        "acceptedAnswer":{"@type":"Answer","text":"Se paga l’azienda con una carta aziendale non c’è un rimborso al dipendente. In busta paga confluiscono invece i rimborsi approvati per spese anticipate personalmente, quando previsto."}
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <nav aria-label="Navigazione principale">
+        <a href="#" class="brand" aria-label="Jet HR">
+          <span class="logo-mark">J</span>
+          <span>Jet HR</span>
+        </a>
+        <div class="navlinks">
+          <a href="#come-funziona">Come funziona</a>
+          <a href="#per-chi">Per chi è</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn btn-primary" href="#demo">Richiedi una demo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Nuovo prodotto · Carte Jet</span>
+          <h1>Le carte aziendali che si riconciliano da sole</h1>
+          <p>Dai a ogni dipendente una carta Jet con limiti e regole di spesa. Ogni pagamento entra in Jet HR, viene abbinato al giustificativo e arriva pronto per la contabilità.</p>
+          <p class="punchline">Niente anticipi. Niente Excel. Niente caccia agli scontrini.</p>
+          <div class="actions">
+            <a class="btn btn-lime" href="#demo">Richiedi una demo →</a>
+            <a class="btn btn-ghost" href="#come-funziona">Scopri come funziona</a>
+          </div>
+          <div class="micro">Concept landing page per la task SEO Manager · dettagli finanziari da validare prima del lancio.</div>
+        </div>
+
+        <div class="visual" aria-label="Mockup della carta Jet e della gestione spese">
+          <div class="dashboard">
+            <div class="dash-head">
+              <strong>Spese aziendali</strong>
+              <div class="dots"><i></i><i></i><i></i></div>
+            </div>
+
+            <div class="expense">
+              <div class="icon">T</div>
+              <div><strong>Trenitalia</strong><span>Trasferta · Milano</span><span class="status">Giustificativo ok</span></div>
+              <div class="amount">€ 87,90</div>
+            </div>
+            <div class="expense">
+              <div class="icon">H</div>
+              <div><strong>Hotel Centrale</strong><span>Alloggio · Cliente ACME</span><span class="status">Riconciliata</span></div>
+              <div class="amount">€ 154,00</div>
+            </div>
+            <div class="expense">
+              <div class="icon">S</div>
+              <div><strong>SaaS Tool</strong><span>Software · Marketing</span><span class="status">Policy rispettata</span></div>
+              <div class="amount">€ 49,00</div>
+            </div>
+          </div>
+
+          <div class="card-mock">
+            <div class="card-stripe">TEAM SALES</div>
+            <div class="card-logo"><span class="logo-mark">J</span> Jet HR</div>
+            <div class="chip"></div>
+            <div class="card-number">•••• •••• •••• 2048</div>
+            <div class="card-bottom"><span>MARIO ROSSI</span><span>BUSINESS</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="proof">
+      <div class="wrap">
+        Già usi Jet HR per <b>persone, paghe e note spese?</b> Le carte entrano nello stesso flusso.
+      </div>
+    </div>
+
+    <section id="come-funziona">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Controllo della spesa</span>
+          <h2>Dai autonomia ai dipendenti senza perdere il controllo</h2>
+          <p class="lead">Crea carte fisiche o virtuali, assegna limiti e regole per persona o team e monitora le transazioni in tempo reale.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="feature">
+            <div class="n">01</div>
+            <h3>Regole prima della spesa</h3>
+            <p>Limiti per dipendente o team, categorie consentite e policy definite a monte.</p>
+          </article>
+          <article class="feature">
+            <div class="n">02</div>
+            <h3>Carte per ogni caso d’uso</h3>
+            <p>Carte fisiche per chi viaggia e virtuali per acquisti online e abbonamenti.</p>
+          </article>
+          <article class="feature">
+            <div class="n">03</div>
+            <h3>Finance vede tutto subito</h3>
+            <p>Transazioni centralizzate, blocco e sblocco, visibilità immediata su team e spese.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:var(--mint)">
+      <div class="wrap split">
+        <div>
+          <span class="eyebrow">Riconciliazione</span>
+          <h2>Una transazione, un giustificativo, zero copie-incolla</h2>
+          <p class="lead">Quando un dipendente paga con la carta Jet, la spesa compare automaticamente in piattaforma. Il dipendente allega il giustificativo e Jet HR associa transazione, categoria, centro di costo e progetto.</p>
+          <p class="lead"><strong>Finance vede subito cosa manca e cosa è pronto per la contabilità.</strong></p>
+          <div class="actions"><a class="btn btn-primary" href="#demo">Guarda il flusso completo →</a></div>
+        </div>
+
+        <div class="panel">
+          <strong>Dal pagamento alla contabilità</strong>
+          <div class="steps">
+            <div class="step"><i>1</i><div><strong>Pagamento</strong><span>Il dipendente usa la carta Jet.</span></div></div>
+            <div class="step"><i>2</i><div><strong>Giustificativo</strong><span>Foto dello scontrino o fattura dalla stessa esperienza.</span></div></div>
+            <div class="step"><i>3</i><div><strong>Riconciliazione</strong><span>Spesa, categoria e centro di costo vengono associati.</span></div></div>
+            <div class="step"><i>4</i><div><strong>Contabilità</strong><span>I dati arrivano pronti per il flusso amministrativo.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div class="panel" style="background:var(--peach)">
+          <span class="eyebrow">Note spese + payroll</span>
+          <h3 style="font-size:34px;line-height:1.05;letter-spacing:-.04em;margin:18px 0">Carta aziendale e rimborso spese, finalmente nello stesso posto</h3>
+          <p>Le spese pagate con carta aziendale vengono riconciliate per la contabilità. Le spese anticipate personalmente dal dipendente seguono invece il normale workflow di approvazione e, quando previsto, arrivano in busta paga.</p>
+          <p><strong>Un solo sistema per entrambi i casi.</strong></p>
+        </div>
+        <div>
+          <span class="eyebrow">Perché Jet</span>
+          <h2>Il vantaggio non è la carta. È tutto quello che succede dopo.</h2>
+          <p class="lead">Jet HR collega la spesa alla persona, alla policy, al giustificativo e ai processi amministrativi già presenti in piattaforma.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Meno strumenti</span>
+          <h2>Prima dovevi collegare 4 strumenti. Ora ne basta uno.</h2>
+          <p class="lead">Il nuovo prodotto ha valore se elimina passaggi, non se aggiunge un’altra dashboard.</p>
+        </div>
+        <div class="compare-grid">
+          <div class="flow">
+            <small>Prima</small>
+            <div class="flowline">Carta bancaria <span class="arrow">→</span> Excel <span class="arrow">→</span> tool note spese <span class="arrow">→</span> contabilità / payroll</div>
+          </div>
+          <div class="flow good">
+            <small>Con Jet HR</small>
+            <div class="flowline">Carta Jet <span class="arrow">→</span> giustificativo <span class="arrow">→</span> riconciliazione <span class="arrow">→</span> contabilità / payroll</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="per-chi">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Per chi è</span>
+          <h2>Pensata per chi gestisce persone e spese ogni giorno</h2>
+        </div>
+        <div class="audience">
+          <div class="persona"><strong>Finance</strong><p>Controllo in tempo reale e riconciliazione più veloce.</p></div>
+          <div class="persona"><strong>HR / Admin</strong><p>Meno solleciti, meno processi separati, meno errori manuali.</p></div>
+          <div class="persona"><strong>Dipendenti</strong><p>Niente anticipi e meno burocrazia per documentare la spesa.</p></div>
+          <div class="persona"><strong>Manager</strong><p>Policy chiare e approvazioni semplici per team e centri di costo.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:20px">
+      <div class="wrap trustbox">
+        <div class="trust-grid">
+          <div>
+            <span class="eyebrow">Trust & compliance</span>
+            <h2 style="font-size:42px">Pagamenti chiari anche nelle condizioni</h2>
+            <p class="lead">In una landing reale questi elementi devono essere visibili e verificabili, non nascosti nel footer.</p>
+          </div>
+          <div>
+            <ul>
+              <li>Issuer / partner regolamentato</li>
+              <li>Circuito e natura della carta</li>
+              <li>Costi, commissioni e limiti</li>
+              <li>Criteri di eleggibilità</li>
+              <li>Sicurezza e gestione frodi</li>
+              <li>Condizioni e fogli informativi</li>
+            </ul>
+            <p style="font-size:13px;color:var(--muted);margin-top:20px"><strong>Nota prototipo:</strong> questi dati non sono inventati nella task e andrebbero inseriti solo dopo validazione Product/Legal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">FAQ</span>
+          <h2>Domande frequenti</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>La carta Jet è una carta di credito, debito o prepagata?</summary>
+            <p>La natura reale del prodotto va indicata senza ambiguità al lancio, insieme a issuer, circuito, costi e condizioni.</p>
+          </details>
+          <details>
+            <summary>Posso dare una carta a ogni dipendente?</summary>
+            <p>Sì, se previsto dal prodotto. L’amministratore può assegnare carte e regole in base a ruolo, team o necessità.</p>
+          </details>
+          <details>
+            <summary>Posso impostare limiti diversi?</summary>
+            <p>Sì, se previsto: il valore è poter governare la spesa prima della transazione, non solo controllarla a fine mese.</p>
+          </details>
+          <details>
+            <summary>Come vengono gestiti gli scontrini?</summary>
+            <p>La transazione entra automaticamente in Jet HR e il dipendente allega il giustificativo. Il sistema collega i dati alla spesa e segnala ciò che manca.</p>
+          </details>
+          <details>
+            <summary>Le spese con carta finiscono in busta paga?</summary>
+            <p>No: se paga l’azienda con una carta aziendale non c’è un rimborso al dipendente. In busta paga confluiscono invece i rimborsi approvati per spese anticipate personalmente, quando previsto.</p>
+          </details>
+          <details>
+            <summary>Posso esportare le spese in contabilità?</summary>
+            <p>Sì, secondo le integrazioni e gli export effettivamente disponibili al lancio.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="final">
+      <div class="wrap final-inner">
+        <div>
+          <span class="eyebrow">Carte Jet</span>
+          <h2>Smetti di gestire le spese dopo che sono successe</h2>
+          <p class="lead" style="color:var(--ink);margin-top:18px">Dai al team uno strumento per pagare e a Finance un sistema per controllare e riconciliare tutto nello stesso posto.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:demo@jethr.com?subject=Demo%20Carte%20Jet">Richiedi una demo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <a href="#" class="brand" style="font-size:18px"><span class="logo-mark" style="width:26px;height:26px;font-size:16px">J</span>Jet HR</a>
+      <span class="prototype">Prototype · SEO Manager Task</span>
+      <span>Concept non ufficiale · dati finanziari da validare</span>
+    </div>
+  </footer>
+</body>
+</html>
